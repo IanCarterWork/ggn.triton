@@ -1,0 +1,48 @@
+{
+
+	"ToneName" : "Light Tone"
+
+    ,"ToneVersion" : "0.1.1903.0"
+
+
+    ,"Color:White" : "#fff"
+
+    ,"Color:Black" : "#010101"
+
+
+    ,"Color:Dark" : "#333"
+
+    ,"Color:Light" : "#999"
+
+    ,"Color:Primary" : "#888"
+
+    ,"Color:Secondary" : "#777"
+
+    ,"Color:Tertiary" : "#666"
+
+    ,"Color:Quaternary" : "#555"
+
+
+    ,"Color:Text" : "#303030"
+
+    ,"Color:TextHover" : "#444"
+
+    ,"Color:TextLayer" : "#cacaca"
+
+
+    ,"Color:Layer" : "#DFDFDF"
+
+
+    ,"Color:Border" : "#c8c8c8"
+
+    ,"Color:BorderHover" : "#999"
+
+    ,"Color:Shadow" : "#d0d0d0"
+
+
+    ,"Color:InfoText" : "#333"
+
+    ,"Color:InfoBackground" : "#999"
+
+
+}

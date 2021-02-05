@@ -1,0 +1,13 @@
+{
+
+    "Connect:DB:Usernames" : "users_names"
+
+    ,"Connect:DB:Passwords" : "users_passwords"
+    
+    ,"Connect:DB:Passwords:Recovery" : "users_passwords_recovery"
+
+    ,"Connect:DB:Roles" : "users_roles"
+
+    ,"Connect:DB:Identities" : "users_identity"
+
+}

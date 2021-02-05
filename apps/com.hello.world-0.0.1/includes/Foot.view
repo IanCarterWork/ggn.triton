@@ -1,0 +1,10 @@
+<?php
+
+    namespace Framework\Application;
+
+?>
+
+        <script>window.$Settings=<?=$this->GenerateSettings();?></script>
+
+    </body>
+</html>

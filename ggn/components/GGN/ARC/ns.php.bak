@@ -1,0 +1,524 @@
+<?php
+
+namespace GGN;
+
+/**
+ * ARC : Application Request Canonical
+ *
+ */
+
+global $GGN;
+
+
+
+  use GGN\App;
+
+
+
+/**
+ * Class ARC
+ *
+ */
+
+if (!class_exists("\\" . __NAMESPACE__ . "\ARC")) {
+
+  class ARC
+  {
+
+
+
+    /** Arret Total */
+
+    static public function Stop()
+    {
+
+      die;
+
+    }
+
+
+
+    /** Montage */
+
+    static protected function Mount(String $Method, String $Slug, Settings $Settings, \Closure $Builder)
+    {
+
+      global $GGN;
+
+
+      /* Paramètres */
+
+      //$GGN->{'ARC:Settings'} = $Settings;
+
+
+
+      /* Slug Actuel */
+
+      $Match = Request::Matches($Slug, ($_REQUEST['_arc_method'] ?: $Method) ) ?? null;
+
+      // echo '<pre>'; var_dump($Match); echo '</pre>';
+
+
+      /* Slug correspondant / DEBUT */
+
+      if($Match->Is){
+
+        $GGN->{'ARC:Current'} = $Match;
+
+          if ($Builder instanceof \Closure) {
+
+            $Arguments = [];
+
+            foreach ((new \ReflectionFunction($Builder))->getParameters() as $Entry) {
+
+              $ClassName = $Entry->getType()->getName();
+
+              $Instance = new $ClassName(...($Settings->{$ClassName} ?? null));
+
+              if ($ClassName == 'GGN\Request') {
+
+                $Instance->Queries = $Match;
+
+              }
+
+              $Arguments[] = $Instance;
+
+            }
+
+            $Loop = call_user_func_array($Builder, $Arguments);
+
+            if(!$Loop){ self::Stop(); }
+
+
+          }
+
+      }
+
+      /* Slug correspondant / FIN */
+
+
+
+
+    }
+
+
+
+
+    /** Methode : GET */
+
+    static public function Register(bool $AllowLoop = false)
+    {
+
+
+
+      /*** ARC : /ServicesAwake/* -> Begin */
+
+      self::Get('/ServicesAwake/*'
+
+            , new Settings
+
+            , function(Services\Awake $Service, Request $Request){
+
+                $Set = $Service->Init($Request);
+
+                if(is_object($Set)){ 
+
+                  header("Content-Type:application/json");
+
+                  echo $Set->Build();
+  
+                }
+
+                else{
+
+                  echo '{"Response":null, "Title":"Echec Service", "About":"Service:unvailable"}';
+                  
+                }
+
+
+          }
+
+        );
+
+      /*** ARC : /ServicesAwake/* -> End */
+
+
+
+
+      /*** ARC : /ServicesWave/* -> Begin */
+
+      self::Get('/ServicesWave/*'
+
+            , new Settings
+
+            , function(Services\Wave $Service, Request $Request){
+
+                $Set = $Service
+
+                    ->Initialize($Request->Queries->Matches[1] ?? '', (Object) [
+
+                        'Method' => $Request->Input('service-method') ?? 'get'
+
+                        ,'Token' => $Request->Input('service-token') ?? null
+
+                        ,'Input' => (Object) $_REQUEST
+
+                        ,'Format:Output' => $Request->Input('service-format-output') ?: 'application/json'
+
+                        ,'JS:CallBack' => $Request->Input('service-js-callback') ?: null
+
+                    ])
+
+                ;
+
+                header("Content-Type:" . ($Request->Input('service-format-output') ?: 'application/json') . "");
+
+                echo $Set->Build();
+
+
+                return false;
+
+
+          }
+
+        );
+
+      /*** ARC : /ServicesWave/* -> End */
+
+
+
+
+      /*** ARC : /CSS/* -> Begin */
+
+      self::Get('/css/*'
+
+            , new Settings
+
+            , function(\Framework\CSS\ARC $Framework, Request $Request){
+
+          // var_dump( $Request->Get('media-screen', '') );exit;
+
+                if($CSS = $Framework->Sheet(
+
+                    $Request->Queries->Matches[1] ?? ''
+
+                    , [
+
+                      'Palette' => $Request->Get('palette', 'default')
+
+                      , 'Tone' => $Request->Get('tone', 'dark')
+
+                      , 'PseudoClass' => $Request->Get('pseudo', '')
+
+                      , 'MediaScreen' => $Request->Get('media-screen', '')
+
+                    ]
+
+                )){
+
+                  header("Content-Type:text/css;");
+
+                    echo $CSS;
+
+
+                    return false;
+
+                }
+
+                else{
+
+                  return true;
+                  
+                }
+
+
+            }
+
+        );
+
+      /*** ARC : /CSS/* -> End */
+
+
+
+      /*** ARC : /Images/* -> Begin */
+
+      self::Get('/Images/*'
+
+            , new Settings
+
+            , function(\GGN\Image\ARC $Image, Request $Request){
+
+                global $GGN;
+
+                $Set = $Request->Get('set');
+
+                if($Image->Graft(
+
+                    $GGN->{'Dir:Images'} . $Request->Queries->Matches[1] ?? ''
+                    
+                    , $Request->Get('quality')
+                    
+                    , is_array($Set) ? $Set : [$Set]
+
+                    , true
+
+                ) === NULL){
+
+                  return true;
+
+                }
+
+                return false;
+
+            }
+
+        );
+
+      /*** ARC : /Images/* -> End */
+
+      self::All('/UiKits/*', new Settings, function(Request $Request){
+
+        global $GGN;
+
+        $File = $GGN->{'Dir:UiKits'} . ($Request->Queries->Matches[1] ?? '') . '.ui';
+
+        if(is_file($File)){
+
+          header("HTTP/1.0 200");
+
+          include $File;
+
+          return false;
+
+        }
+
+        else{
+
+          return true;
+
+        }
+
+        
+      });
+
+          
+
+
+
+
+      self::All('/UiThemes/Layers/*', new Settings, function(Request $Request){
+
+        global $GGN;
+
+
+        $File = $GGN->{'Dir:Themes'} . ($Request->Queries->Matches[1] ?? '') . '/Layers/' . $Request->Input('l', null) . '.layer';
+
+        if(is_file($File)){
+
+          header("HTTP/1.0 200");
+
+          include $File;
+
+          return false;
+
+        }
+
+        else{
+
+          return true;
+
+        }
+        
+      });
+
+          
+
+
+
+
+      self::All('/UiThemes/Layouts/*', new Settings, function(Request $Request){
+
+        global $GGN;
+
+
+        $File = $GGN->{'Dir:Themes'} . ($Request->Queries->Matches[1] ?? '') . '/Layouts/' . $Request->Input('l', null) . '.layout';
+
+        if(is_file($File)){
+
+          header("HTTP/1.0 200");
+
+          include $File;
+
+          return false;
+
+        }
+
+        else{
+
+          return true;
+
+        }
+        
+      });
+
+          
+
+
+      // Apps Packages Manager / BEGIN
+
+      $Apps = App\Manager::Packages();
+
+      
+      if(is_object($Apps)){
+
+        if(isset($Apps->{'Apps:Packages'}) && \is_array($Apps->{'Apps:Packages'})){
+
+          foreach( $Apps->{'Apps:Packages'} as $Package){
+
+            
+            self::All($Package->ARC
+
+              , (isset($Package->Settings) ? Settings::Get('ARC/' . $Package->Settings) : Settings::Get('ARC/App.Default'))
+
+              , function(App\Boot $Boot, Ui $Ui, Request $Request) use ($AllowLoop, $Apps, $Package){
+
+                
+                if($Manager = App\Manager::Get($Package->iD)){
+
+                  // var_dump($Manager);exit;
+
+                  return $Manager->Framework(
+                    
+                    'ggn.arc'
+                    
+                    , [
+                      
+                      'Boot'=>$Boot
+
+                      , 'Ui'=>$Ui
+
+                      , 'Request'=>$Request
+                      
+                    ] 
+                  
+                  );
+
+                  
+                }
+
+                return $AllowLoop;
+
+              }
+            
+            );
+
+            
+          }
+
+          // echo "<pre>";
+          // \var_dump($Apps);exit;    
+
+          
+        }
+        
+      }
+
+      // Apps Packages Manager / END
+
+
+
+
+      self::All('/*'
+
+      , new Settings
+
+      , function() use ($AllowLoop){
+
+          header("HTTP/1.0 404");
+
+          Dial\Warning(
+
+              'Page Introuvable'
+
+              , '404 Erreur'
+
+              , 'La page demandée est introuvable'
+
+          );
+
+          return $AllowLoop;
+
+      }
+
+    );
+      
+      
+    }
+
+
+
+
+    /** Methode : GET */
+
+    static public function All(String $Slug, Settings $Settings, \Closure $Builder)
+    {
+
+      return self::Mount('*', $Slug, $Settings, $Builder);
+    }
+
+
+
+
+    /** Methode : GET */
+
+    static public function Get(String $Slug, Settings $Settings, \Closure $Builder)
+    {
+
+      return self::Mount('GET', $Slug, $Settings, $Builder);
+    }
+
+
+
+
+    /** Methode : POST */
+
+    static public function Post(String $Slug, Settings $Settings, \Closure $Builder)
+    {
+
+      return self::Mount('POST', $Slug, $Settings, $Builder);
+    }
+
+
+
+
+    /** Methode : PUT */
+
+    static public function Put(String $Slug, Settings $Settings, \Closure $Builder)
+    {
+
+      return self::Mount('PUT', $Slug, $Settings, $Builder);
+    }
+
+
+
+
+    /** Methode : DELETE */
+
+    static public function Delete(String $Slug, Settings $Settings, \Closure $Builder)
+    {
+
+      return self::Mount('DELETE', $Slug, $Settings, $Builder);
+    }
+
+
+
+
+    /** Methode : RESTORE */
+
+    static public function Restore(String $Slug, Settings $Settings, \Closure $Builder)
+    {
+
+      return self::Mount('RESTORE', $Slug, $Settings, $Builder);
+    }
+  }
+}

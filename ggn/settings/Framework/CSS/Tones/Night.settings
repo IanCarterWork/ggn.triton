@@ -1,0 +1,48 @@
+{
+
+	"ToneName" : "Night Tone"
+
+    ,"ToneVersion" : "0.1.1812.0"
+
+
+    ,"Color:White" : "#fff"
+
+    ,"Color:Black" : "#000"
+
+
+    ,"Color:Dark" : "#010101"
+
+    ,"Color:Light" : "#8f8f8f"
+
+    ,"Color:Primary" : "#3f3f3f"
+
+    ,"Color:Secondary" : "#4f4f4f"
+
+    ,"Color:Tertiary" : "#5f5f5f"
+
+    ,"Color:Quaternary" : "#6f6f6f"
+
+
+    ,"Color:Text" : "#BCCCD3"
+
+    ,"Color:TextHover" : "#fff"
+
+    ,"Color:TextLayer" : "#efefef"
+
+
+    ,"Color:Layer" : "#0E1D24"
+
+
+    ,"Color:Border" : "#bdc3c7"
+
+    ,"Color:BorderHover" : "#fff"
+
+    ,"Color:Shadow" : "#000"
+
+
+    ,"Color:InfoText" : "#999"
+
+    ,"Color:InfoBackground" : "#2f2f2f"
+
+
+}

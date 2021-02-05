@@ -1,0 +1,41 @@
+<?php
+
+
+
+
+/** Paramètres */
+
+define("GGN_ARC_USING", false);
+
+
+
+/** @GGN :state */
+
+$GGN = (Object) [];
+
+
+
+
+/** @GGN :require */
+
+require dirname(__FILE__) . '/config.php';
+
+require dirname(__FILE__) . '/' . $GGN->{'Kernel:Default'} . '.php';
+
+
+
+
+
+
+/** @GGN :init */
+
+use GGN\ARC;
+
+use GGN\Settings;
+
+$GGN->{'System:Config'} = (Object) json_decode(file_get_contents($GGN->{'Dir:Root'} . 'ggn.system.json'));
+
+
+
+
+

@@ -1,0 +1,37 @@
+{
+
+	"ColorName" : "Blue Nooon Palette"
+
+    ,"ColorVersion" : "0.0.1"
+
+
+    ,"Color:Primary" : "#125166"
+
+    ,"Color:Secondary" : "#1c7a99"
+
+    ,"Color:Tertiary" : "#208051"
+
+    ,"Color:Quaternary" : "#1f995e"
+
+
+    ,"Color:Error" : "#b13333"
+
+    ,"Color:ErrorText" : "#ff9696"
+
+    ,"Color:ErrorLayer" : "#b13333"
+
+
+    ,"Color:Warning" : "#e5b665"
+
+    ,"Color:WarningText" : "#3d2805"
+
+    ,"Color:WarningLayer" : "#e5b665"
+
+
+    ,"Color:Success" : "#026b0c"
+
+    ,"Color:SuccessText" : "#1d9328"
+
+    ,"Color:SuccessLayer" : "#026b0c"
+
+}

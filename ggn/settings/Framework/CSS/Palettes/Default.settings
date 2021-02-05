@@ -1,0 +1,37 @@
+{
+
+	"ColorName" : "Default Palette"
+
+    ,"ColorVersion" : "0.0.3"
+
+
+    ,"Color:Primary" : "#C51162"
+
+    ,"Color:Secondary" : "#9A0000"
+
+    ,"Color:Tertiary" : "#3C007C"
+
+    ,"Color:Quaternary" : "#48017B"
+
+
+    ,"Color:Error" : "#b13333"
+
+    ,"Color:ErrorText" : "#ff9696"
+
+    ,"Color:ErrorLayer" : "#b13333"
+
+
+    ,"Color:Warning" : "#e5b665"
+
+    ,"Color:WarningText" : "#3d2805"
+
+    ,"Color:WarningLayer" : "#e5b665"
+
+
+    ,"Color:Success" : "#5A6800"
+
+    ,"Color:SuccessText" : "#5A6800"
+
+    ,"Color:SuccessLayer" : "#A5BE00"
+
+}

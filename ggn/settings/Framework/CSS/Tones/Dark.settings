@@ -1,0 +1,48 @@
+{
+
+	"ToneName" : "Dark Tone"
+
+    ,"ToneVersion" : "0.1.1812.0"
+
+
+    ,"Color:White" : "#f0f0f0"
+
+    ,"Color:Black" : "#000"
+
+
+    ,"Color:Dark" : "#282828"
+
+    ,"Color:Light" : "#8f8f8f"
+
+    ,"Color:Primary" : "#3f3f3f"
+
+    ,"Color:Secondary" : "#4f4f4f"
+
+    ,"Color:Tertiary" : "#5f5f5f"
+
+    ,"Color:Quaternary" : "#6f6f6f"
+
+
+    ,"Color:Text" : "#cacaca"
+
+    ,"Color:TextHover" : "#fff"
+
+    ,"Color:TextLayer" : "#444"
+
+
+    ,"Color:Layer" : "#282828"
+
+
+    ,"Color:Border" : "#cacaca"
+
+    ,"Color:BorderHover" : "#fff"
+
+    ,"Color:Shadow" : "#000"
+
+
+    ,"Color:InfoText" : "#999"
+
+    ,"Color:InfoBackground" : "#2f2f2f"
+
+
+}

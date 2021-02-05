@@ -1,0 +1,47 @@
+{
+    
+    "Name": "GGN Triton"
+
+    , "Version": "0.1.0"
+
+    , "Mode": ":dev"
+
+    , "Path:Public": "public_html"
+
+    , "Development": {
+
+        "Host": "127.0.0.1"
+
+        , "HTTPS": false
+
+        , "Port": 80150
+        
+    }
+
+    , "ARC": {
+
+        "Boot": "HelloWorld"
+
+        , "Entities": {
+            
+            "ImagesEntity":{}
+            
+            , "ServiceAwakeEntity":{}
+            
+            , "HelloWorld":{}
+            
+
+        }
+
+        ,"Directives":{
+
+            "Matches" : {
+                
+            }
+            
+        }
+        
+        
+    }
+
+}

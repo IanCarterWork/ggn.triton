@@ -1,0 +1,39 @@
+{
+
+	"Require:Login" : false
+
+	,"User:Level" : 0
+
+	,"App:Title" : "Hello World"
+		
+	,"App:Version" : "0.0.1"
+
+	,"App:Name" : "HelloWorld"
+
+	,"App:iD" : "com.hello.world"
+		
+	,"App:Cover" : "app.cover.jpg"
+
+	,"App:Logo" : "app.logo.png"
+
+	,"App:Logo:Light" : "app.logo.png"
+
+	,"App:Logo:Dark" : "app.logo.png"
+
+	,"App:Lang" : "fr"
+
+	,"App:SplashScreen:Logo" : "images/logo/ggn.senju.png"
+
+	,"Navigation:UsePathMode" : true
+
+	,"Asset:iD" : "ggn.connect"
+
+	,"Theme:Palette" : "royalblue"
+
+	,"Theme:Tone" : "light"
+	
+	,"View:Boot" : "Login"
+
+	,"View:Default" : "Login"
+
+}

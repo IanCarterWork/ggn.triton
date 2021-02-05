@@ -1,0 +1,19 @@
+{
+
+    "Mail:App:Name" : "Clean Services Pressing"
+
+    , "Mail:App:Logo" : "{{Http:Host}}images/logo/app.png"
+
+    , "Mail:App:URL" : "{{Http:Host}}intl/"
+
+    , "Mail:Sender" : "no-replay@csp.fr"
+
+    , "Mail:Compagny:Subscribe:Title" : "Bienvenue "
+
+    , "Mail:Compagny:Subscribe:About" : "Votre entreprise fait désormais partie de notre réseau"
+
+    , "Mail:Compagny:Subscribe:Message" : "Cette clé vous permet d\\'activer votre compagnie sur notre plateform"
+
+
+
+}

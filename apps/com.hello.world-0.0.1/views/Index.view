@@ -1,0 +1,15 @@
+<?php
+
+    $this->Include('Head');
+
+?>
+
+
+<h1>Hello World</h1>
+
+
+<?php
+
+    $this->Include('Foot');
+
+?>

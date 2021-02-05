@@ -1,0 +1,314 @@
+<!doctype HTML>
+
+<html lang="{{Settings:Lang}}">
+
+    <head sense-helmet="default">
+
+        <style type="text/css">
+
+            sense-book,sense-var{display:none;}
+
+            .sense-splashscreen{background-color:#282828;}
+
+            :root,html,body{height:100vh;}
+
+            [sense-splash="Label"]{
+
+                font-size:1.5em;
+
+            }
+
+            [sense-splash="Icon"]{
+
+                font-size:2.1em;
+
+                padding:16px;
+
+            }
+
+            [sense-splash="Payload:Progress"]{
+
+                padding:12px 0;
+
+                display:flex;
+
+                display:-webkit-flex;
+
+                align-items:center;
+
+                justify-content:center;
+
+                flex-direction:column;
+
+            }
+
+            [sense-payload="Progress:Bar"]{
+
+                width:120px;
+
+                height:.38rem;
+
+                background-color:rgba(0,0,0,.2);
+
+                border-radius:20px;
+
+            }
+
+            [sense-payload="Progress:Track"]{
+
+                width:0%;
+
+                height:100%;
+
+                background-color:#fff;
+
+                border-radius:inherit;
+
+                transition:all 200ms ease;
+
+            }
+
+            [sense-payload="Progress:Info"]{
+
+                display:flex;
+
+                width:128px;
+
+                padding:8px 0;
+
+            }
+
+            [sense-payload="Progress:Loaded"]{
+
+                text-align:right;
+
+            }
+
+            [sense-payload="Progress:Total"]{
+
+                text-align:right;
+
+            }
+
+            [sense-payload="Progress:Percent"]{
+
+                text-align:left;
+
+                flex:1 auto;
+
+            }
+
+            body[sense-chassis="default"]{
+/*
+                position:relative;
+*/
+                overflow-x:hidden;
+
+                overflow-y:hidden;
+
+            }
+
+      </style>
+
+        <title>{{App:Title}}</title>
+
+        <script type="text/javascript">{{Sense:Engine:Settings}}</script>
+
+        {{Sense:Engine:Head}}
+
+    </head>
+
+    <body sense-chassis="default">
+
+        {{Sense:Engine:Body}}
+
+        <script type="text/javascript">
+
+          	window.$Payloads={
+
+              	Data:[]
+
+              	,Loaded:[]
+
+              	,Failed:[]
+
+              	,Strict:false
+
+              	,Ready:false
+
+              	,Insert:function(New){
+
+                  	var Payload={Statut:null},Ob=this,Key=this.Data.length;
+
+                  	Payload.Target=New.Target||null;
+
+                  	Payload.URL=New.URL||null;
+
+                  	Payload.Success=function(){
+
+                      	this.Statut=true;
+
+                  		Ob.Loaded[Ob.Loaded.length]=Key;
+
+                      	if(typeof this.Target=='object' && typeof this.Target.attr == 'function'){G(this.Target).attr('sense-payload-statut',':loaded');}
+
+                  		return this;
+
+                	};
+
+              		Payload.Fail=function(){
+
+                      	this.Statut=false;
+
+                  		if(!Ob.Strict){Ob.Loaded[Ob.Loaded.length]=Key;}
+
+                  		else{Ob.Failed[Ob.Failed.length]=Key;}
+
+                      	if(typeof this.Target=='object' && typeof this.Target.attr == 'function'){G(this.Target).attr('sense-payload-statut',':failed');}
+
+                  		return this;
+
+                	};
+
+                  	Payload.Reload=function(){
+
+                    };
+
+                  	this.Data[Key]=Payload;
+
+                  	return Payload;
+
+                }
+
+              	,Frame:function(fn){
+
+                  	(
+
+                      	window.requestAnimationFrame
+
+  						|| window.mozRequestAnimationFrame
+
+  						|| window.webkitRequestAnimationFrame
+
+  						|| window.msRequestAnimationFrame
+
+                    )(fn);
+
+                  	return this;
+
+                }
+
+              	,Check:function(hit,done){
+
+                  	this.Percent=(this.Data.length)?((this.Loaded.length/this.Data.length)*100):100;
+
+                  	this.Percent=this.Percent>100?100:this.Percent;
+
+                  	hit.apply(this,[]);
+
+					if(this.Loaded.length>=this.Data.length){
+
+                      	this.Ready = true;
+
+                      	setTimeout(()=>{done.apply(this,[]);},300);
+
+                    }
+
+                  	else{
+
+                      	this.Frame(()=>{this.Check(hit,done);});
+
+                    }
+
+                  	return this;
+
+                }
+
+              	,InitUi:function(e,hit,done){
+
+                  	this.Ui={};
+
+                  	this.Ui.Element=e;
+
+                  	this.Ui.Track=this.Ui.Element.querySelector('[sense-payload="Progress:Track"]');
+
+                  	this.Ui.Percent=this.Ui.Element.querySelector('[sense-payload="Progress:Percent"]');
+
+                  	this.Ui.Loaded=this.Ui.Element.querySelector('[sense-payload="Progress:Loaded"]');
+
+                  	this.Ui.Total=this.Ui.Element.querySelector('[sense-payload="Progress:Total"]');
+
+                  	setTimeout(()=>{this.Check(hit,done);},100);
+
+                  	return this;
+
+                }
+
+              	,Reset:function(){
+
+                  	this.Data=[];
+
+                  	this.Loaded=0;
+
+                  	this.Percent=0;
+
+                  	this.Ui={};
+
+                  	return this;
+
+                }
+
+            };
+
+
+          	if($Settings.UsePayloadData){
+
+              	$Payloads.Strict=$Settings['Payload:Strict'];
+
+              	$Payloads.InitUi(
+
+                  	$Settings.SplashScreen
+
+                  	,function(){
+
+                      	if(this.Ui.Track){this.Ui.Track.style.width=`${this.Percent}%`;}
+
+                      	if(this.Ui.Percent){this.Ui.Percent.innerHTML=`${Math.ceil(this.Percent*10)/10}%`;}
+
+                      	if(this.Ui.Loaded){this.Ui.Loaded.innerHTML=`${this.Loaded.length}`;}
+
+                      	if(this.Ui.Total){this.Ui.Total.innerHTML=`${this.Data.length}`;}
+
+                    }
+
+                  	,function(){
+
+                      	this.Ui.Element.style.opacity='0.001';
+
+                      	this.Ui.Element.style.zIndex='0';
+
+                      	setTimeout(()=>{
+
+                          	this.Ui.Element.style.display='none';
+
+                      		this.Reset();
+
+                        },$Settings.SplashScreenDelay||360);
+
+                    }
+
+                );
+
+            }
+
+      	</script>
+
+        <script type="text/javascript" src="{{Http:Host}}Assets/JS/GGN/Core/Senju-0.0.1.js"></script>
+
+        <script type="text/javascript" src="{{Http:Host}}Assets/JS/GGN/Mods/Extended.Events-0.0.1.js"></script>
+
+        <script type="text/javascript" src="{{Sense:Engine:JS}}"></script>
+
+    </body>
+
+</html>

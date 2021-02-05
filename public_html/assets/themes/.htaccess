@@ -1,0 +1,7 @@
+<FilesMatch "\.(php|py|rb|json)$">
+
+	Order allow,deny
+
+    Deny from all
+
+</FilesMatch>

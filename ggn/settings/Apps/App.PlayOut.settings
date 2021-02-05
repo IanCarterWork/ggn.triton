@@ -1,0 +1,16 @@
+{
+
+    "PlayOut:Posts" : "playout_posts"
+    
+    , "PlayOut:Posts:Comments" : "playout_posts_comments"
+
+    , "PlayOut:Categories" : "playout_categories"
+
+    , "PlayOut:Emissions" : "playout_emissions"
+
+    , "PlayOut:Programs" : "playout_programs"
+
+    , "PlayOut:Comments" : "playout_comments"
+
+    
+}

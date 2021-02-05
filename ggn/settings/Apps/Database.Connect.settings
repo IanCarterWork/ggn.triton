@@ -1,0 +1,15 @@
+{
+
+    "DB:Host" : "localhost"
+
+    , "DB:User" : "root"
+
+    , "DB:Password" : "Qsyana1982*#"
+
+    , "DB:Name" : "mokian_core_linker"
+
+    , "DB:Prefix" : "ggn_"
+
+    , "DB:Charset" : "utf8mb4"
+    
+}

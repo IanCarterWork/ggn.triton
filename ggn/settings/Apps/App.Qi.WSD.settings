@@ -1,0 +1,50 @@
+{
+
+    "Qi:DB:WSD:Compagny:Key" : "wsd_compagny_secretkey"
+
+    , "Qi:DB:WSD:Compagny:Identity" : "wsd_compagny_identity"
+
+
+    , "Qi:DB:WSD:Users:Identity" : "wsd_users_identity"
+
+    , "Qi:DB:WSD:Users:Enterprises" : "wsd_users_enterprises"
+
+    , "Qi:DB:WSD:Users:Roles" : "wsd_users_roles"
+
+    , "Qi:DB:WSD:Users:Locations" : "wsd_users_locations"
+    
+
+    , "Qi:DB:WSD:Orders" : "wsd_orders"
+
+    , "Qi:DB:WSD:Orders:Interactions" : "wsd_orders_interactions"
+
+    , "Qi:DB:WSD:Orders:Details" : "wsd_orders_details"
+
+
+    , "Qi:DB:WSD:Geo:Statics" : "wsd_geo_statics"
+
+    , "Qi:DB:WSD:Geo:Dynamics" : "wsd_geo_dynamics"
+
+
+    , "Qi:DB:WSD:Cities" : "wsd_cities"
+
+
+    , "Qi:DB:WSD:Fleets" : "wsd_fleets"
+
+    , "Qi:DB:WSD:Fleets:Using" : "wsd_fleets_using"
+
+
+    , "Qi:DB:WSD:Feeds" : "wsd_feeds"
+
+
+    , "Qi:DB:WSD:Employees:Infos" : "wsd_employees_infos"
+
+
+    , "Qi:Edu:DB:Messenger:Discussions" : "messenger_discussions"
+
+    , "Qi:Edu:DB:Messenger:Exchanges" : "messenger_exchanges"
+
+    , "Qi:Edu:DB:Messenger:Users" : "messenger_users"
+
+    
+}

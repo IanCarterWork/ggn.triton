@@ -1,0 +1,20 @@
+<?php
+
+namespace Core\BiN;
+
+
+
+require \dirname(__FILE__) . "/require.console";
+
+/**
+ * 
+ */
+
+$Command = new Console([
+
+    "Ui" => false
+    
+]);
+
+
+$Command->Initialize($_SERVER['argv']);

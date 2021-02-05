@@ -1,0 +1,29 @@
+<?php
+
+namespace Core\BiN;
+
+
+
+require \dirname(__FILE__) . "/require.console";
+
+/**
+ * 
+ */
+
+$Command = new Console([
+
+    "Ui" => false
+    
+]);
+
+
+
+$Args = $_SERVER['argv'];
+
+$Command
+
+    ->ShiftCommand($Args, 'server', 'ggn/console')
+
+    ->Initialize($Args)
+    
+;
